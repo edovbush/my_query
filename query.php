@@ -266,8 +266,9 @@ class my_query
 		$vals_list = substr($vals_list, 0, -1);
 		
 		$query = "INSERT INTO $table ($tds_list) VALUES ($vals_list);";
-		$result = $this->Execute($query);
-		return $query;
+		mysqli_query($this->connection, $query);
+		$new_id = $this->connection->insert_id ?? '';
+		return ['query' => $query, 'id' => $new_id];
 	}
 
 	function comma($val) {
